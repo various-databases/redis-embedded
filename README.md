@@ -1,46 +1,50 @@
-embedded-redis
+嵌入式Redis服务
 ==============
 
-Redis embedded server for Java integration testing
+> 嵌入式Redis服务器，用于集成测试。
 
 
-Maven dependency
+pom中依赖配置
 ==============
 
-Currently embedded-redis is available in clojars repository:
+仓库地址:
 ```
-<repository>
-  <id>clojars.org</id>
-  <url>http://clojars.org/repo</url>
-</repository>
+	<repositories>
+		<!-- 中新仓库 -->
+		<repository>
+			<id>zxsoft-public</id>
+			<name>Nexus Release Repository</name>
+			<url>http://192.168.3.23:18081/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
 ```
 
-Dependency configuration:
+依赖包:
 ```
 <dependency>
-  <groupId>redis.embedded</groupId>
-  <artifactId>embedded-redis</artifactId>
-  <version>0.3</version>
+   <groupId>zx.soft</groupId>
+   <artifactId>redis-embedded</artifactId>
+   <version>1.0.0</version>
 </dependency>
 ```
-More at https://clojars.org/redis.embedded/embedded-redis
+具体见：https://github.com/Various-DBs/redis-embedded
 
-Usage example
+使用示例
 ==============
 
-Running RedisServer is as simple as:
-```
+运行RedisServer如下:
+```java
 RedisServer redisServer = new RedisServer(6379);
 redisServer.start();
 // do some work
 redisServer.stop();
 ```
-You can also provide RedisServer with your own redis executable to run:
-```
+使用Redis目录运行RedisServer:
+```java
 RedisServer redisServer = new RedisServer("/path/to/your/redis", 6379);
 ```
-You can also use fluent API to create RedisServer:
-```
+使用流式接口运行RedisServer:
+```java
 RedisServer redisServer = RedisServer.builder()
   .executable("/path/to/your/redis")
   .port(6379)
@@ -48,8 +52,8 @@ RedisServer redisServer = RedisServer.builder()
   .configFile("/path/to/your/redis.conf")
   .build();
 ```
-Or even create simple redis.conf file from scratch:
-```
+或者创建redis.conf配置:
+```java
 RedisServer redisServer = RedisServer.builder()
   .executable("/path/to/your/redis")
   .port(6379)
@@ -58,8 +62,8 @@ RedisServer redisServer = RedisServer.builder()
   .setting("appendonly no")
   .build();
 ```
-A simple redis integration test would look like this:
-```
+Redis集成测试示例如下:
+```java
 public class SomeIntegrationTestThatRequiresRedis {
   private RedisServer redisServer;
   
@@ -81,12 +85,11 @@ public class SomeIntegrationTestThatRequiresRedis {
 }
 ```
 
-
-Redis version
+Redis版本
 ==============
 
-When not provided with the desired redis executable, RedisServer runs os-dependent executable enclosed in jar. Currently is uses:
-- Redis 2.6.14 in case of Linux/Unix
-- unofficial Win32/64 port from https://github.com/MSOpenTech/redis (branch 2.6) in case of Windows
+当前的版本是:
+- Linux/Unix：Redis 2.6.14
+- Windows：非官方的Win32/64版本可从https://github.com/MSOpenTech/redis (分支 2.6)上下载
 
-However, you should provide RedisServer with redis executable if you need specific version.
+注意，在使用的时候需要指定版本。
