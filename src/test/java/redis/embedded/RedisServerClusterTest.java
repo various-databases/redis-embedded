@@ -3,9 +3,10 @@ package redis.embedded;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-
+import zx.soft.redis.embedded.RedisServer;
 import static org.junit.Assert.assertEquals;
 
 public class RedisServerClusterTest {

@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import zx.soft.redis.embedded.RedisServer;
 
 public class RedisServerTest {
 
